@@ -9,6 +9,3 @@ spec:
       repoURL: bobdoah/alpine
       imageSelectionStrategy: Lexical
       allowTags: ^\d{14}$
-  - git:
-      repoURL: https://github.com/bobdoah/kargo-merge-test
-      branch: main

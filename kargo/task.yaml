@@ -29,7 +29,7 @@ spec:
     - uses: git-commit
       config:
         path: ./src
-        message: ${{ outputs['update-image'].commitMessage }}
+        message: ${{ task.outputs['update-image'].commitMessage }}
     - uses: git-push
       as: push
       config:
@@ -39,10 +39,11 @@ spec:
       as: open
       config:
         repoURL: ${{ vars.gitRepo }}
-        sourceBranch: ${{ outputs.push.branch }}
+        sourceBranch: ${{ task.outputs.push.branch }}
+        targetBranch: main
     - uses: git-merge-pr
       config:
         repoURL: ${{ vars.gitRepo }}
-        prNumber: ${{ outputs['open-pr'].prNumber }}
+        prNumber: ${{ task.outputs.open.pr.id }}
         mergeMethod: ${{ vars.mergeMethod }}
         wait: true
