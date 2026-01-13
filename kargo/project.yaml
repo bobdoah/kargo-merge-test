@@ -1,0 +1,18 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Project
+metadata:
+  name: kargo-merge-methods
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: ProjectConfig
+metadata:
+  name: kargo-merge-methods
+  namespace: kargo-merge-methods
+spec:
+  promotionPolicies:
+  - stage: dev-merge-commit
+    autoPromotionEnabled: true
+  - stage: dev-squash
+    autoPromotionEnabled: true
+  - stage: dev-rebase
+    autoPromotionEnabled: true

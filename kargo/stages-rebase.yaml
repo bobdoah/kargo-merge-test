@@ -1,0 +1,22 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: dev-rebase
+  namespace: kargo-merge-methods
+  annotations:
+    kargo.akuity.io/color: red
+spec:
+  requestedFreight:
+  - origin:
+      kind: Warehouse
+      name: merge-methods-warehouse
+    sources:
+      direct: true
+  promotionTemplate:
+    spec:
+      vars:
+      - name: mergeMethod
+        value: rebase
+      steps:
+      - task:
+          name: dev-merge

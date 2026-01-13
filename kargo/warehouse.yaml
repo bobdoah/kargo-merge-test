@@ -1,0 +1,14 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Warehouse
+metadata:
+  name: merge-methods-warehouse
+  namespace: kargo-merge-methods
+spec:
+  subscriptions:
+  - image:
+      repoURL: bobdoah/alpine
+      imageSelectionStrategy: Lexical
+      allowTags: ^nightly-\d{14}$
+  - git:
+      repoURL: https://github.com/bobdoah/kargo-merge-methods
+      branch: main

@@ -1,0 +1,48 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: PromotionTask
+metadata:
+  name: dev-merge
+  namespace: kargo-merge-methods
+spec:
+    vars:
+    - name: mergeMethod
+    - name: gitRepo
+      value: https://github.com/bobdoah/kargo-merge-test
+    steps:
+    - uses: git-clone
+      config:
+        repoURL: ${{ vars.gitRepo }}
+        checkout:
+        - branch: main
+          path: ./src
+    - uses: copy
+      config:
+        inPath: ./src/base
+        outPath: ./src/${{ vars.mergeMethod }}
+    - uses: kustomize-set-image
+      as: update-image
+      config:
+        path: ./src/${{ vars.mergeMethod }}
+        images:
+        - image: bobdoah/alpine
+          newTag: ${{ imageFrom("bobdoah/alpine").Tag }}
+    - uses: git-commit
+      config:
+        path: ./src
+        message: ${{ outputs['update-image'].commitMessage }}
+    - uses: git-push
+      as: push
+      config:
+        path: ./src
+        generateTargetBranch: true
+    - uses: git-open-pr
+      as: open
+      config:
+        repoURL: ${{ vars.gitRepo }}
+        sourceBranch: ${{ outputs.push.branch }}
+    - uses: git-merge-pr
+      config:
+        repoURL: ${{ vars.gitRepo }}
+        prNumber: ${{ outputs['open-pr'].prNumber }}
+        mergeMethod: ${{ vars.mergeMethod }}
+        wait: true
