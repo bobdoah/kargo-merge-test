@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- project.yaml
+- secrets.yaml
+- stages-merge-commit.yaml
+- stages-rebase.yaml
+- stages-squash.yaml
+- task.yaml
+- warehouse.yaml
