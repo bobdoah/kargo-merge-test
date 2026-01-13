@@ -10,5 +10,5 @@ spec:
       imageSelectionStrategy: Lexical
       allowTags: ^nightly-\d{14}$
   - git:
-      repoURL: https://github.com/bobdoah/kargo-merge-methods
+      repoURL: https://github.com/bobdoah/kargo-merge-test
       branch: main
