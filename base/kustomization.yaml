@@ -3,8 +3,7 @@ kind: Kustomization
 
 resources:
 - deployment.yaml
-- service.yaml
 
 images:
-- name: ghcr.io/example/sample-app
+- name: bobdoah/alpine
   newTag: latest
