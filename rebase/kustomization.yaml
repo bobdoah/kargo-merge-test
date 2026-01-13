@@ -4,4 +4,4 @@ resources:
 - deployment.yaml
 images:
 - name: bobdoah/alpine
-  newTag: "20260113215039"
+  newTag: "20260113230118"
