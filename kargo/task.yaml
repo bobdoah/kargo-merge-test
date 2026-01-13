@@ -25,7 +25,7 @@ spec:
         path: ./src/${{ vars.mergeMethod }}
         images:
         - image: bobdoah/alpine
-          newTag: ${{ imageFrom("bobdoah/alpine").Tag }}
+          tag: ${{ quote(imageFrom("bobdoah/alpine").Tag) }}
     - uses: git-commit
       config:
         path: ./src
